@@ -20,7 +20,7 @@ app.use(serve('./build'))
 
 app.use(proxy({
   host: opts.proxy,
-  match: /^\/services\//
+  match: /^\/api\//
 }))
 
 // 404 fallback(like) to index.html
