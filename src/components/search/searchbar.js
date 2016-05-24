@@ -30,8 +30,8 @@ export const actionCreators = {
       query.content = contentState
     // TODO webpack dev server "proxy" not work, 使用 getState 获取 filter 存储的数据
     const fetchUrl = url.format({
-      protocol: 'http',
-      host: '0.0.0.0:3000',
+      // protocol: 'http',
+      // host: '0.0.0.0:3000',
       pathname: api.search,
       query
     })
