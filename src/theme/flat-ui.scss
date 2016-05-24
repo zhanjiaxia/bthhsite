@@ -1,0 +1,26 @@
+.sidebar {
+  .nav-stacked {
+    background-color: #2c3e50;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    overflow: hidden;
+
+    > li {
+      background-color: #34495e;
+      a {
+        color: #fff;
+        &:hover {
+          color: #fff;
+          background: inherit;
+        }
+      }
+      &.active > a {
+        color: #1abc9c;
+        background: 0 0;
+      }
+    }
+  }
+}
+.pagination li {
+  margin-right: 0;
+}
