@@ -25,6 +25,7 @@ var plugins = [
     __DEBUG__: false
   }),
   new CopyWP([
+    { from: path.resolve(PATHS.src, 'favicon.png'), to: 'favicon.png' },
     { from: path.resolve(PATHS.node_modules, './bootstrap/dist/css/bootstrap.min.css'), to: 'css/bootstrap.min.css'},
     { from: path.resolve(PATHS.node_modules, './designmodo-flat-ui/dist/css/flat-ui.min.css'), to: 'css/flat-ui.min.css'},
   ]),
@@ -32,8 +33,7 @@ var plugins = [
     template: path.resolve(PATHS.src, 'index.html'),
     filename: 'index.html',
     chunks: ['vendor', 'main'],
-    inject: 'body',
-    favicon: path.resolve(PATHS.src, 'favicon.ico')
+    inject: 'body'
   }),
   new CommonsChunkWP('vendor', `js/vendors.[chunkhash:8].min.js`),
   //new ExtractTextWP('css/commons.[contenthash:8].min.css'),
