@@ -6,18 +6,11 @@ var extend = require('extend')
 
 var argv = require('minimist')(process.argv.slice(2))
 
-var proxyhost = ~argv._.indexOf('proxy') && argv._[argv._.indexOf('proxy') + 1]
-
-var localOpts = {}
-
-if (proxyhost)
-  localOpts.proxy = proxyhost
-
 var opts = extend(true, {
   proxy: 'http://0.0.0.0:3333',
   host: '0.0.0.0',
   port: 8888
-}, localOpts)
+}, argv)
 
 var app = koa({ host: opts.host })
 
