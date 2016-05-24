@@ -4,20 +4,20 @@
   "description": "bthh 网页版",
   "main": "index.js",
   "scripts": {
-    "clean:build": "rm -rf build && mkdir build",
+    "clear": "rm -rf build/*",
+    "build": "webpack --progress --profile --colors --config ./config/webpack.prod.js",
+    "server": "node ./server.js",
     "start": "webpack-dev-server --config ./config/webpack.dev.js --hot --inline --progress --history-api-fallback"
   },
   "author": "KenZhan",
   "license": "ISC",
   "dependencies": {
-    "antd": "^0.12.16",
     "autoprefixer": "^6.3.6",
     "bootstrap": "^3.3.6",
     "classnames": "^2.2.4",
     "dateformat": "^1.0.12",
     "designmodo-flat-ui": "git+https://github.com/designmodo/Flat-UI.git",
     "extend": "^3.0.0",
-    "flat-ui": "^2.1.1",
     "react": "^15.0.1",
     "react-bootstrap": "^0.29.3",
     "react-dom": "^15.0.1",
@@ -27,6 +27,11 @@
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
+    "koa": "^1.1.2",
+    "minimist": "^1.2.0",
+    "koa-proxy": "^0.6.0",
+    "koa-static": "^2.0.0",
+    "koa-views": "^4.1.0",
     "babel-core": "^6.7.7",
     "babel-loader": "^6.2.4",
     "babel-plugin-runtime": "^1.0.7",
@@ -34,10 +39,10 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
-    "copy-webpack-plugin": "^2.1.1",
+    "copy-webpack-plugin": "^2.1.6",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.16.0",
+    "html-webpack-plugin": "^2.17.0",
     "node-compass": "^0.2.4",
     "node-sass": "^3.6.0",
     "postcss-loader": "^0.8.2",
@@ -50,6 +55,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "webpack-md5-hash": "0.0.5"
   }
 }
