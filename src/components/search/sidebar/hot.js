@@ -20,8 +20,8 @@ export const actionCreators = {
     dispatch({ type: actionTypes.RECEIVE_BTHH_HOT })
     // TODO webpack dev server "proxy" not work
     const fetchUrl = url.format({
-      protocol: 'http',
-      host: '0.0.0.0:3000',
+      // protocol: 'http',
+      // host: '0.0.0.0:3000',
       pathname: api.hot,
       query: {
         sort: JSON.stringify({ hot: -1 })
