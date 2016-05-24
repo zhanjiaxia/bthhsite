@@ -27,7 +27,10 @@ var plugins = [
   new CopyWP([
     { from: path.resolve(PATHS.src, 'favicon.png'), to: 'favicon.png' },
     { from: path.resolve(PATHS.node_modules, './bootstrap/dist/css/bootstrap.min.css'), to: 'css/bootstrap.min.css'},
+    { from: path.resolve(PATHS.node_modules, './bootstrap/dist/css/bootstrap.min.css.map'), to: 'css/bootstrap.min.css.map'},
+    { from: path.resolve(PATHS.node_modules, './bootstrap/dist/fonts/'), to: 'fonts/'},
     { from: path.resolve(PATHS.node_modules, './designmodo-flat-ui/dist/css/flat-ui.min.css'), to: 'css/flat-ui.min.css'},
+    { from: path.resolve(PATHS.node_modules, './designmodo-flat-ui/dist/fonts/'), to: 'fonts/'}
   ]),
   new HtmlWebpackPlugin({
     template: path.resolve(PATHS.src, 'index.html'),
