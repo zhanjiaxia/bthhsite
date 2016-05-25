@@ -3,29 +3,35 @@ var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
 var extend = require('extend')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CopyWP = require('copy-webpack-plugin')
 
-var mockServer = 'http:0.0.0.0:3333'
-
-var env = 'development'
+var env = 'production'
 var PATHS = {
   src: path.resolve(__dirname, '../src'),
-  build: path.resolve(__dirname, '../build')
+  build: path.resolve(__dirname, '../build'),
+  node_modules: path.resolve(__dirname, '../node_modules')
 }
 
 var plugins = [
-  new webpack.optimize.CommonsChunkPlugin('vendor', 'js/vendor.bundle.js'),
   new webpack.NoErrorsPlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(env),
-    __DEBUG__: true
+    __DEBUG__: false
   }),
-  new webpack.optimize.OccurenceOrderPlugin(),
+  new CopyWP([
+    { from: path.resolve(PATHS.src, 'favicon.png'), to: 'favicon.png' },
+    { from: path.resolve(PATHS.node_modules, './bootstrap/dist/css/bootstrap.min.css'), to: 'css/bootstrap.min.css'},
+    { from: path.resolve(PATHS.node_modules, './bootstrap/dist/css/bootstrap.min.css.map'), to: 'css/bootstrap.min.css.map'},
+    { from: path.resolve(PATHS.node_modules, './bootstrap/dist/fonts/'), to: 'fonts/'},
+    { from: path.resolve(PATHS.node_modules, './designmodo-flat-ui/dist/css/flat-ui.min.css'), to: 'css/flat-ui.min.css'},
+    { from: path.resolve(PATHS.node_modules, './designmodo-flat-ui/dist/fonts/'), to: 'fonts/'}
+  ]),
   new HtmlWebpackPlugin({
     template: path.resolve(PATHS.src, 'index.html'),
     filename: 'index.html',
     chunks: ['vendor', 'main'],
-    inject: 'body',
-    favicon: path.resolve(PATHS.src, 'favicon.ico')
+    inject: 'body'
   })
 ]
 
@@ -39,12 +45,12 @@ var sassLoaders = [
 module.exports = {
   env,
   entry: {
-    main: path.resolve(PATHS.src, 'main.js'),
-    vendor: ['react']
+    vendor: ['react', 'redux', 'react-redux', 'react-router', 'react-router-redux'],
+    main: path.resolve(PATHS.src, 'main.js')
   },
   output: {
     path: PATHS.build,
-    filename: 'js/[name].[hash:6].js',
+    filename: 'js/[name].js',
     publicPath: '/'
   },
   resolve: {
@@ -71,23 +77,21 @@ module.exports = {
         loader: 'url-loader?limit=8192'
       },{
         test: /\.(woff|eot|ttf|woff2)$/i,
-        //loader: 'url?limit=10000&name=fonts/[hash:8].[name].[ext]'
         loader: 'file?name=fonts/[name].[ext]'
       }
-    ],
-    postcss: () => [autoprefixer({ browsers: ['last 2 versions'] })],
-    devServer: {
-      proxy: {
-        '/api/*': {
-          target: mockServer,
-          secure: false
-        }
-      },
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-      progress: true
+    ]
+  },
+  devServer: {
+    proxy: {
+      '/api/*': {
+        target: 'http://0.0.0.0:3000',
+        secure: false
+      }
     },
-    devtool: 'eval'
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    outputPath: PATHS.build
   }
 }
